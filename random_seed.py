@@ -19,6 +19,8 @@ from rando_modules.modify_entrances import \
     get_gear_location_shuffle,\
     get_glitched_logic,\
     adjust_shop_logic
+    adjust_rip_cheato_pricing, \
+    get_race_mode
 from rando_modules.random_entrances import shuffle_dungeon_entrances
 from rando_modules.random_formations import get_random_formations
 from rando_modules.random_movecosts import get_randomized_moves
@@ -131,9 +133,17 @@ class RandomSeed:
             self.rando_settings.shuffle_dungeon_entrances["value"]
         )
 
-        world_graph = enrich_graph_data(world_graph)
+        # Race Mode
+        # TODO: create a proper setting for this
+        race_chapters_not_required = [1, 2, 3, 4, 5, 6, 7]
+        race_chapters_required = []
+        for i in range(0, self.rando_settings.starway_spirits_needed["value"]):
+            chapter_index = random.randrange(0, len(race_chapters_not_required))
+            race_chapters_required.append(race_chapters_not_required.pop(chapter_index))
+        race_chapters_required.sort()
+        print("Race Mode Chapters: " + str(race_chapters_required))
+        world_graph = get_race_mode(world_graph, race_chapters_not_required, self.rando_settings.starway_spirits_needed["value"])
 
-        # Adjust further settings
         hidden_block_mode = self.rando_settings.hidden_block_mode["value"]
         if self.rando_settings.glitch_settings.knows_hidden_blocks["value"]:
             hidden_block_mode = 3 # Having this trick enabled is equivalent to mode 3, logic wise

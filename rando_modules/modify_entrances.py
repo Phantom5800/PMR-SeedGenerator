@@ -258,6 +258,15 @@ from maps.graph_edges.glitched_logic.global_knows_puzzle_solutions import \
 from maps.graph_edges.glitched_logic.global_reach_high_blocks_with_super_boots import \
     edges_global_reach_high_blocks_with_super_boots
 
+# Race Mode
+from maps.graph_edges.race_mode.edges_ch1 import get_edges_ch1_add, edges_ch1_remove
+from maps.graph_edges.race_mode.edges_ch2 import get_edges_ch2_add, edges_ch2_remove
+from maps.graph_edges.race_mode.edges_ch3 import get_edges_ch3_add, edges_ch3_remove
+from maps.graph_edges.race_mode.edges_ch4 import get_edges_ch4_add, edges_ch4_remove
+from maps.graph_edges.race_mode.edges_ch5 import get_edges_ch5_add, edges_ch5_remove
+from maps.graph_edges.race_mode.edges_ch6 import get_edges_ch6_add, edges_ch6_remove
+from maps.graph_edges.race_mode.edges_ch7 import get_edges_ch7_add, edges_ch7_remove
+
 def get_shorter_bowsercastle(world_graph: dict):
     """
     Returns a list of db data tuples representing modified entrances in Bowser's
@@ -389,7 +398,7 @@ def get_glitched_logic(
         all_new_edges.extend(edges_mac_add_sushieless_starpiece)
     if glitch_settings.toad_town_sushie_glitch["value"]:
         all_new_edges.extend(edges_mac_add_toad_town_sushie_glitch)
-    
+
     # Toad Town Tunnels
     if glitch_settings.clippy_boots_stone_block_skip["value"]:
         all_new_edges.extend(edges_tik_add_clippy_boots_stone_block_skip)
@@ -762,6 +771,49 @@ def _adjust_rip_cheato_logic(world_graph: dict, checks_in_logic:int):
             world_graph,
             new_edges=adjusted_cheato_edges,
             edges_to_remove=remove_cheato_edges
+        )
+
+    return world_graph
+
+
+def get_race_mode(world_graph: dict, non_required_chapters: list, required_chapter_count: int):
+    all_new_edges = []
+    all_edges_to_remove = []
+
+    if 1 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch1_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch1_remove)
+
+    if 2 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch2_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch2_remove)
+
+    if 3 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch3_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch3_remove)
+
+    if 4 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch4_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch4_remove)
+
+    if 5 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch5_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch5_remove)
+
+    if 6 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch6_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch6_remove)
+
+    if 7 in non_required_chapters:
+        all_new_edges.extend(get_edges_ch7_add(required_chapter_count))
+        all_edges_to_remove.extend(edges_ch7_remove)
+
+    # Modify graph with all pending changes, if any
+    if all_new_edges or all_edges_to_remove:
+        world_graph, _ = adjust(
+            world_graph,
+            new_edges=all_new_edges,
+            edges_to_remove=all_edges_to_remove
         )
 
     return world_graph
