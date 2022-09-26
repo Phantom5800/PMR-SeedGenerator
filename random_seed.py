@@ -20,7 +20,8 @@ from rando_modules.modify_entrances import \
     get_glitched_logic,\
     adjust_shop_logic
     adjust_rip_cheato_pricing, \
-    get_race_mode
+    get_race_mode \
+    get_streamlined_chapters
 from rando_modules.random_entrances import shuffle_dungeon_entrances
 from rando_modules.random_formations import get_random_formations
 from rando_modules.random_movecosts import get_randomized_moves
@@ -133,16 +134,16 @@ class RandomSeed:
             self.rando_settings.shuffle_dungeon_entrances["value"]
         )
 
-        # Race Mode
+        # Streamlined Chapters
         # TODO: create a proper setting for this
-        race_chapters_not_required = [1, 2, 3, 4, 5, 6, 7]
-        race_chapters_required = []
+        streamlined_chapters_not_required = [1, 2, 3, 4, 5, 6, 7]
+        streamlined_chapters_required = []
         for i in range(0, self.rando_settings.starway_spirits_needed["value"]):
-            chapter_index = random.randrange(0, len(race_chapters_not_required))
-            race_chapters_required.append(race_chapters_not_required.pop(chapter_index))
-        race_chapters_required.sort()
-        print("Race Mode Chapters: " + str(race_chapters_required))
-        world_graph = get_race_mode(world_graph, race_chapters_not_required, self.rando_settings.starway_spirits_needed["value"])
+            chapter_index = random.randrange(0, len(streamlined_chapters_not_required))
+            streamlined_chapters_required.append(streamlined_chapters_not_required.pop(chapter_index))
+        streamlined_chapters_required.sort()
+        print("Required Streamlined Chapters: " + str(streamlined_chapters_required))
+        world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_not_required, self.rando_settings.starway_spirits_needed["value"])
 
         hidden_block_mode = self.rando_settings.hidden_block_mode["value"]
         if self.rando_settings.glitch_settings.knows_hidden_blocks["value"]:
