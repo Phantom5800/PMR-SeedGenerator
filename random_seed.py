@@ -18,9 +18,7 @@ from rando_modules.modify_entrances import \
     get_bowsercastle_bossrush,\
     get_gear_location_shuffle,\
     get_glitched_logic,\
-    adjust_shop_logic
-    adjust_rip_cheato_pricing, \
-    get_race_mode \
+    adjust_shop_logic, \
     get_streamlined_chapters
 from rando_modules.random_entrances import shuffle_dungeon_entrances
 from rando_modules.random_formations import get_random_formations
@@ -146,6 +144,7 @@ class RandomSeed:
             streamlined_chapters_required.sort()
             print(f"Required Streamlined Chapters: {str(streamlined_chapters_required)}")
             world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_required)
+        world_graph = enrich_graph_data(world_graph)
 
         hidden_block_mode = self.rando_settings.hidden_block_mode["value"]
         if self.rando_settings.glitch_settings.knows_hidden_blocks["value"]:
