@@ -143,7 +143,7 @@ class RandomSeed:
                 streamlined_chapters_required.append(streamlined_chapters_not_required.pop(chapter_index))
             streamlined_chapters_required.sort()
             print(f"Required Streamlined Chapters: {str(streamlined_chapters_required)}")
-            world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_required, self.entrance_list)
+            world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_required)
         world_graph = enrich_graph_data(world_graph)
 
         hidden_block_mode = self.rando_settings.hidden_block_mode["value"]

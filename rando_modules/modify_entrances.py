@@ -777,7 +777,7 @@ def _adjust_rip_cheato_logic(world_graph: dict, checks_in_logic:int):
     return world_graph
 
 
-def get_streamlined_chapters(world_graph: dict, required_chapters: list, dungeon_entrance_changes: list):
+def get_streamlined_chapters(world_graph: dict, required_chapters: list):
     all_new_edges = []
     all_edges_to_remove = []
 
@@ -802,8 +802,9 @@ def get_streamlined_chapters(world_graph: dict, required_chapters: list, dungeon
 
     # remove the shy guy's toybox entrance
     if 4 not in required_chapters:
-        all_new_edges.extend(get_streamlined_edges_ch4_add())
-        all_edges_to_remove.extend(get_streamlined_edges_ch4_remove())
+        toybox_entrance_dest = world_graph["MAC_04/2"]['edge_list'][0]['to']
+        all_new_edges.extend(get_streamlined_edges_ch4_add(toybox_entrance_dest))
+        all_edges_to_remove.extend(get_streamlined_edges_ch4_remove(toybox_entrance_dest))
 
     # remove the whale and sewers blue pipe to ch5
     if 5 not in required_chapters:
@@ -812,8 +813,9 @@ def get_streamlined_chapters(world_graph: dict, required_chapters: list, dungeon
 
     # remove the door to flower fields from toad town
     if 6 not in required_chapters:
-        all_new_edges.extend(get_streamlined_edges_ch6_add())
-        all_edges_to_remove.extend(get_streamlined_edges_ch6_remove())
+        ff_gate_entrance_dest = world_graph["MAC_01/5"]['edge_list'][0]['to']
+        all_new_edges.extend(get_streamlined_edges_ch6_add(ff_gate_entrance_dest))
+        all_edges_to_remove.extend(get_streamlined_edges_ch6_remove(ff_gate_entrance_dest))
 
     # remove the pipe to shiver city
     if 7 not in required_chapters:
