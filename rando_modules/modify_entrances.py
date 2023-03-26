@@ -259,14 +259,14 @@ from maps.graph_edges.glitched_logic.global_reach_high_blocks_with_super_boots i
     edges_global_reach_high_blocks_with_super_boots
 
 # Streamlined Chapters
-from maps.graph_edges.streamlined_chapters.edges_ch1 import streamlined_edges_ch1_add, streamlined_edges_ch1_remove
-from maps.graph_edges.streamlined_chapters.edges_ch2 import streamlined_edges_ch2_add, streamlined_edges_ch2_remove
-from maps.graph_edges.streamlined_chapters.edges_ch3 import streamlined_edges_ch3_add, streamlined_edges_ch3_remove
-from maps.graph_edges.streamlined_chapters.edges_ch4 import streamlined_edges_ch4_add, streamlined_edges_ch4_remove
-from maps.graph_edges.streamlined_chapters.edges_ch5 import streamlined_edges_ch5_add, streamlined_edges_ch5_remove
-from maps.graph_edges.streamlined_chapters.edges_ch6 import streamlined_edges_ch6_add, streamlined_edges_ch6_remove
-from maps.graph_edges.streamlined_chapters.edges_ch7 import streamlined_edges_ch7_add, streamlined_edges_ch7_remove
-from maps.graph_edges.streamlined_chapters.edges_hos import get_streamlined_edges_hos_add, streamlined_edges_hos_remove
+from maps.graph_edges.streamlined_chapters.edges_ch1 import *
+from maps.graph_edges.streamlined_chapters.edges_ch2 import *
+from maps.graph_edges.streamlined_chapters.edges_ch3 import *
+from maps.graph_edges.streamlined_chapters.edges_ch4 import *
+from maps.graph_edges.streamlined_chapters.edges_ch5 import *
+from maps.graph_edges.streamlined_chapters.edges_ch6 import *
+from maps.graph_edges.streamlined_chapters.edges_ch7 import *
+from maps.graph_edges.streamlined_chapters.edges_hos import *
 
 def get_shorter_bowsercastle(world_graph: dict):
     """
@@ -777,7 +777,7 @@ def _adjust_rip_cheato_logic(world_graph: dict, checks_in_logic:int):
     return world_graph
 
 
-def get_streamlined_chapters(world_graph: dict, required_chapters: list):
+def get_streamlined_chapters(world_graph: dict, required_chapters: list, dungeon_entrance_changes: list):
     all_new_edges = []
     all_edges_to_remove = []
 
@@ -785,30 +785,37 @@ def get_streamlined_chapters(world_graph: dict, required_chapters: list):
         all_new_edges.extend(get_streamlined_edges_hos_add(len(required_chapters)))
         all_edges_to_remove.extend(streamlined_edges_hos_remove)
 
+    # remove the pleasant path entrances
     if 1 not in required_chapters:
         all_new_edges.extend(streamlined_edges_ch1_add)
         all_edges_to_remove.extend(streamlined_edges_ch1_remove)
 
+    # remove the paths to mt rugged and dry dry desert
     if 2 not in required_chapters:
         all_new_edges.extend(streamlined_edges_ch2_add)
         all_edges_to_remove.extend(streamlined_edges_ch2_remove)
 
+    # remove the paths to forever forest and boo's mansion
     if 3 not in required_chapters:
         all_new_edges.extend(streamlined_edges_ch3_add)
         all_edges_to_remove.extend(streamlined_edges_ch3_remove)
 
+    # remove the shy guy's toybox entrance
     if 4 not in required_chapters:
-        all_new_edges.extend(streamlined_edges_ch4_add)
-        all_edges_to_remove.extend(streamlined_edges_ch4_remove)
+        all_new_edges.extend(get_streamlined_edges_ch4_add())
+        all_edges_to_remove.extend(get_streamlined_edges_ch4_remove())
 
+    # remove the whale and sewers blue pipe to ch5
     if 5 not in required_chapters:
         all_new_edges.extend(streamlined_edges_ch5_add)
         all_edges_to_remove.extend(streamlined_edges_ch5_remove)
 
+    # remove the door to flower fields from toad town
     if 6 not in required_chapters:
-        all_new_edges.extend(streamlined_edges_ch6_add)
-        all_edges_to_remove.extend(streamlined_edges_ch6_remove)
+        all_new_edges.extend(get_streamlined_edges_ch6_add())
+        all_edges_to_remove.extend(get_streamlined_edges_ch6_remove())
 
+    # remove the pipe to shiver city
     if 7 not in required_chapters:
         all_new_edges.extend(streamlined_edges_ch7_add)
         all_edges_to_remove.extend(streamlined_edges_ch7_remove)
