@@ -40,6 +40,10 @@ def write_spoiler_log(
     # Add seed hash
     spoiler_dict["SeedHashItems"] = seed_hash_items
 
+    # Add required chapters
+    if spoilerlog_additions and spoilerlog_additions["required chapters"]:
+        spoiler_dict["required chapters"] = spoilerlog_additions["required chapters"]
+
     # Add chapter difficulties
     if settings.progressive_scaling["value"]:
         spoiler_dict["difficulty"] = "progressive"
@@ -51,10 +55,6 @@ def write_spoiler_log(
     # Add modified entrances
     if spoilerlog_additions and spoilerlog_additions["entrances"]:
         spoiler_dict["entrances"] = spoilerlog_additions["entrances"]
-
-    # Add required chapters
-    if spoilerlog_additions and spoilerlog_additions["required chapters"]:
-        spoiler_dict["required chapters"] = spoilerlog_additions["required chapters"]
 
     # Add item locations
     for node in sorted_by_area:

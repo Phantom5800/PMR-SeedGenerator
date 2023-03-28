@@ -133,6 +133,7 @@ class RandomSeed:
         )
 
         # Streamlined Chapters
+        # NOTE: this should probably just be disabled for some combinations of full entrance rando
         if not self.rando_settings.legacy_starway_spirits["value"]:
             streamlined_chapters_not_required = [1, 2, 3, 4, 5, 6, 7]
             streamlined_chapters_required = []
@@ -141,7 +142,6 @@ class RandomSeed:
                 streamlined_chapters_required.append(streamlined_chapters_not_required.pop(chapter_index))
             streamlined_chapters_required.sort()
             self.spoilerlog_additions["required chapters"] = streamlined_chapters_required
-            print(f"Required Streamlined Chapters: {str(streamlined_chapters_required)}")
             world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_required)
 
         world_graph = enrich_graph_data(world_graph)
