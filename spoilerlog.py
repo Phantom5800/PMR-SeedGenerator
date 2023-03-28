@@ -41,7 +41,7 @@ def write_spoiler_log(
     spoiler_dict["SeedHashItems"] = seed_hash_items
 
     # Add required chapters
-    if spoilerlog_additions and spoilerlog_additions["required chapters"]:
+    if spoilerlog_additions and spoilerlog_additions.get("required chapters"):
         spoiler_dict["required chapters"] = spoilerlog_additions["required chapters"]
 
     # Add chapter difficulties
