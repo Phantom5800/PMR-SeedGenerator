@@ -802,6 +802,8 @@ def get_streamlined_chapters(world_graph: dict, required_chapters: list):
 
     # remove the shy guy's toybox entrance
     if 4 not in required_chapters:
+        # search through the world graph and find where the toybox spring goes to so the correct edge
+        # can be adjusted
         for node in world_graph["MAC_04/2"]['edge_list']:
             if node['mapchange']:
                 toybox_entrance_dest = node['to']
@@ -816,6 +818,8 @@ def get_streamlined_chapters(world_graph: dict, required_chapters: list):
 
     # remove the door to flower fields from toad town
     if 6 not in required_chapters:
+        # search through the world graph and find where the flower fields gate goes to so the
+        # correct edge can be adjusted
         for node in world_graph["MAC_01/5"]['edge_list']:
             if node['mapchange']:
                 ff_gate_entrance_dest = node['to']
