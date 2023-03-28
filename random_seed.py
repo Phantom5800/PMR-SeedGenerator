@@ -133,9 +133,7 @@ class RandomSeed:
         )
 
         # Streamlined Chapters
-        # TODO: create a proper setting for this
-        streamlined_chapters = True
-        if streamlined_chapters:
+        if not self.rando_settings.legacy_starway_spirits["value"]:
             streamlined_chapters_not_required = [1, 2, 3, 4, 5, 6, 7]
             streamlined_chapters_required = []
             for i in range(0, self.rando_settings.starway_spirits_needed["value"]):
@@ -144,6 +142,7 @@ class RandomSeed:
             streamlined_chapters_required.sort()
             print(f"Required Streamlined Chapters: {str(streamlined_chapters_required)}")
             world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_required)
+
         world_graph = enrich_graph_data(world_graph)
 
         hidden_block_mode = self.rando_settings.hidden_block_mode["value"]

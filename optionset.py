@@ -140,6 +140,7 @@ class OptionSet:
 
         # Entrance General
         self.starway_spirits_needed = get_option_keyvalue_dict("StarWaySpiritsNeeded")
+        self.legacy_starway_spirits = False #get_option_keyvalue_dict("LegacyStarwaySpirits")
         self.bowsers_castle_mode = get_option_keyvalue_dict("BowsersCastleMode")
 
         # Entrance Shuffle
@@ -459,6 +460,8 @@ class OptionSet:
         # Entrance General
         if "StarWaySpiritsNeeded" in options_dict:
             self.starway_spirits_needed = options_dict.get("StarWaySpiritsNeeded")
+        if "LegacyStarwaySpirits" in options_dict:
+            self.legacy_starway_spirits = options_dict.get("LegacyStarwaySpirits")
         if "BowsersCastleMode" in options_dict:
             self.bowsers_castle_mode = options_dict.get("BowsersCastleMode")
 
@@ -1157,6 +1160,8 @@ def validate_options(options_dict):
     if "StarWaySpiritsNeeded" in options_dict:
         assert (    isinstance(options_dict.get("StarWaySpiritsNeeded").get("value"), int)
                 and -1 <= options_dict.get("StarWaySpiritsNeeded").get("value") <= 7)
+    if "LegacyStarwaySpirits" in options_dict:
+        assert isinstance(options_dict.get("LegacyStarwaySpirits").get("value"), bool)
     if "BowsersCastleMode" in options_dict:
         assert isinstance(options_dict.get("BowsersCastleMode").get("value"), int)
 
