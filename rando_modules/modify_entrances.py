@@ -802,8 +802,14 @@ def get_streamlined_chapters(world_graph: dict, required_chapters: list):
 
     # remove the shy guy's toybox entrance
     if 4 not in required_chapters:
-        all_new_edges.extend(streamlined_edges_ch4_add)
-        all_edges_to_remove.extend(streamlined_edges_ch4_remove)
+        # search through the world graph and find where the toybox spring goes to so the correct edge
+        # can be adjusted with shuffle dungeon entrances
+        for node in world_graph["MAC_04/2"]['edge_list']:
+            if node['mapchange']:
+                toybox_entrance_dest = node['to']
+                all_new_edges.extend(get_streamlined_edges_ch4_add(toybox_entrance_dest))
+                all_edges_to_remove.extend(get_streamlined_edges_ch4_remove(toybox_entrance_dest))
+                break
 
     # remove the whale and sewers blue pipe to ch5
     if 5 not in required_chapters:
