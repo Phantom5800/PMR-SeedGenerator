@@ -140,6 +140,7 @@ class RandomSeed:
                 chapter_index = random.randrange(0, len(streamlined_chapters_not_required))
                 streamlined_chapters_required.append(streamlined_chapters_not_required.pop(chapter_index))
             streamlined_chapters_required.sort()
+            self.spoilerlog_additions["required chapters"] = streamlined_chapters_required
             print(f"Required Streamlined Chapters: {str(streamlined_chapters_required)}")
             world_graph = get_streamlined_chapters(world_graph, streamlined_chapters_required)
 

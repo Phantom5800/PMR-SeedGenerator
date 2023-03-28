@@ -52,6 +52,10 @@ def write_spoiler_log(
     if spoilerlog_additions and spoilerlog_additions["entrances"]:
         spoiler_dict["entrances"] = spoilerlog_additions["entrances"]
 
+    # Add required chapters
+    if spoilerlog_additions and spoilerlog_additions["required chapters"]:
+        spoiler_dict["required chapters"] = spoilerlog_additions["required chapters"]
+
     # Add item locations
     for node in sorted_by_area:
         area_name = verbose_area_names.get(node.map_area.name[:3])
