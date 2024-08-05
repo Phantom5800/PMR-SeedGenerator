@@ -44,8 +44,10 @@ sometimes_hint_to_check_mapping = {
 }
 sometimes_hint_count = 4
 
-# hint 1 barren category if possible, check all items in said group,
-# if 0 key items are found, category can be hinted barren
+# Hint 1 barren category if possible, check all items in said group,
+# if 0 key items are found, category can be hinted barren.
+# This set of categories is ordered by what would be the most impactful at the top to least
+# at the bottom in case giving highest priority is better than random.
 barren_categories = [
   {
     "category": "Letter Delivery",
@@ -76,7 +78,8 @@ barren_categories = [
       "Goomba Village - Goompapa Letter Reward 2"
     ],
     "req": "include_letters_mode",
-    "req_val": 3
+    "req_val": 3,
+    "priority": 1
   },
   {
     "category": "Rowf",
@@ -99,9 +102,11 @@ barren_categories = [
       "Plaza District - Rowfs Shop Set 5 - 3"
     ],
     "req": "progression_on_rowf",
-    "req_val": True
+    "req_val": 5,
+    "priority": 1
   },
   {
+    # hint only applies to items in tall blocks, does not mean the entirity of chapter 7 can be dead
     "category": "Ultra Boots",
     "item_set": [
       "Hall to Ultra Boots (B3) - Hidden Block",
@@ -116,18 +121,38 @@ barren_categories = [
       "Room with Spikes (B2) - Yellow Block",
       "Huge Statue Room - Yellow Block",
       "Small Statue Room - Hidden Block"
-    ]
+    ],
+    "priority": 2
   },
   {
+    # hint only applies to items behind metal blocks
     "category": "Ultra Hammer",
     "item_set": [
       "Dizzy Stomp Room - In Chest",
       "Ultra Boots Room (B3) - In Big Chest",
       "Boss Room - Yellow Block Left",
       "Boss Room - Yellow Block Right",
-      "Sushi Tree - In Volcano Chest", # questionable though technically blocked by ultra hammer
       "Metal Block Room (B3) - In SuperBlock"
-    ]
+    ],
+    "priority": 2
+  },
+  {
+    # hint only applies to checks behind the yellow plant, does not include the vines next to said plant
+    "category": "Yellow Berry",
+    "item_set": [
+      "(SE) Briar Platforming - In The Flowers",
+      "(SE) Briar Platforming - In Tree 1",
+      "(SE) Briar Platforming - In Tree 2",
+      "(SE) Briar Platforming - In SuperBlock",
+      "(SE) Water Level Room - Hidden Panel",
+      "(SE) Water Level Room - Hidden Block",
+      "(SE) Water Level Room - Yellow Block",
+      "(SE) Water Level Room - In Tree 1",
+      "(SE) Water Level Room - In Tree 2",
+      "(SE) Lilys Fountain - Lily Reward For WaterStone",
+      "(SE) Lilys Fountain - In Tree"
+    ],
+    "priority": 3
   },
   {
     "category": "Blue Berry",
@@ -136,7 +161,8 @@ barren_categories = [
       "(West) Rosies Trellis - Rosie Gift",
       "(West) Path to Maze - Upper Hidden Block",
       "(West) Path to Maze - Lower Hidden Block"
-    ]
+    ],
+    "priority": 3
   },
   {
     "category": "Red Berry",
@@ -147,22 +173,8 @@ barren_categories = [
       "(SW) Path to Crystal Tree - Central Vine",
       "(SW) Path to Crystal Tree - In Tree 1",
       "(SW) Path to Crystal Tree - In Tree 2"
-    ]
-  },
-  {
-    "category": "Yellow Berry",
-    "item_set": [
-      "(SE) Briar Platforming - In The Flowers",
-      "(SE) Briar Platforming - In Tree 1",
-      "(SE) Briar Platforming - In Tree 2",
-      "(SE) Water Level Room - Hidden Panel",
-      "(SE) Water Level Room - Hidden Block",
-      "(SE) Water Level Room - Yellow Block",
-      "(SE) Water Level Room - In Tree 1",
-      "(SE) Water Level Room - In Tree 2",
-      "(SE) Lilys Fountain - Lily Reward For WaterStone",
-      "(SE) Lilys Fountain - In Tree"
-    ]
+    ],
+    "priority": 3
   },
 ]
 
@@ -197,9 +209,13 @@ def generate_hints(item_spheres:dict, logic_settings):
     sometimes_hints += f"  {k} is {search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])}\n"
 
   # search for barren categories and choose one at random
-  barren_category = "  Could not generate"
+  barren_category = "  Could not generate\n"
+  last_priority = -1
   valid_barren_categories = []
   for i,cat in enumerate(barren_categories):
+    # exit early if barren categories of higher priority have been found already
+    if last_priority > 0 and cat["priority"] > last_priority:
+      break
     if 'req' in cat:
       if getattr(logic_settings, cat['req']) != cat['req_val']:
         continue
@@ -210,6 +226,7 @@ def generate_hints(item_spheres:dict, logic_settings):
         valid = False
         break
     if valid:
+      last_priority = cat["priority"]
       valid_barren_categories.append(i)
   if len(valid_barren_categories) > 0:
     barren_category = f"  {barren_categories[random.choice(valid_barren_categories)]['category']} yields no progression\n"
