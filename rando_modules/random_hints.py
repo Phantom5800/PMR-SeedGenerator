@@ -980,11 +980,56 @@ def search_for_location(item_spheres:dict, location:str) -> str:
 # 1) additional work would need to be done for glitch logic
 # 2) checking the reward for certain item turn ins should be done here as well to determine
 #    if, ex, Koopers Shell is a "required" item
-def item_is_useful(item:str, logic_settings) -> bool:
+def item_is_useful(item:str, item_spheres:dict, logic_settings) -> bool:
   if item == "Goombario*":
     return False
-  if "Letter" in item and getattr(logic_settings, "include_letters_mode") == 0:
+
+  if "Letter" in item \
+    and getattr(logic_settings, "include_letters_mode") == 0 \
+    and not item_is_useful(search_for_location(item_spheres, "Train Station - Parakarry Partner"), item_spheres, logic_settings):
     return False
+
+  if item == "Artifact*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kolorado Artifact Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "BooRecord*" and not item_is_useful(search_for_location(item_spheres, "Record Player Room - In Chest"), item_spheres, logic_settings):
+    return False
+
+  if item == "Calculator*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Rowf Calculator Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "CrystalBerry*" and not item_is_useful(search_for_location(item_spheres, "(West) Rosies Trellis - Rosie Gift"), item_spheres, logic_settings):
+    return False
+
+  if item == "Dictionary*" and not item_is_useful(search_for_location(item_spheres, "Gate District - Russ T. Dictionary Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "Dolly*" and not item_is_useful(search_for_location(item_spheres, "Goomba Village - Goombaria Dolly Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "FryingPan*" \
+    and logic_settings.cook_without_fryingpan == True \
+    and not item_is_useful(search_for_location(item_spheres, "Southern District - Tayce T. Frying Pan Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "KooperShell*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kooper Partner"), item_spheres, logic_settings):
+    return False
+
+  if item == "Lyrics*" and not item_is_useful(search_for_location(item_spheres, "Outpost 1 - Composer Lyrics Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "MailBag*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Postmaster MailBag Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "Melody*" and not item_is_useful(search_for_location(item_spheres, "Port District - Poet Melody Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "VolcanoVase*" and not item_is_useful(search_for_location(item_spheres, "Village Buildings - Kolorado Volcano Vase Reward"), item_spheres, logic_settings):
+    return False
+
+  if item == "WaterStone*" and not item_is_useful(search_for_location(item_spheres, "(SE) Lilys Fountain - Lily Reward For WaterStone"), item_spheres, logic_settings):
+    return False
+
   return '*' in item
 
 def generate_hints(item_spheres:dict, logic_settings):
@@ -992,7 +1037,7 @@ def generate_hints(item_spheres:dict, logic_settings):
 
   # useful barren hint generation data
   letter_turnin = search_for_location(item_spheres, "Train Station - Parakarry Partner")
-  letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, logic_settings)
+  letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, item_spheres, logic_settings)
 
   # search for barren categories and choose one at random
   barren_category_hint = "  Could not generate\n"
@@ -1010,7 +1055,7 @@ def generate_hints(item_spheres:dict, logic_settings):
       item = search_for_location(item_spheres, loc)
 
       # if key item that is not goombario, cannot mark barren
-      if item_is_useful(item, logic_settings):
+      if item_is_useful(item, item_spheres, logic_settings):
         valid = False
         break
     if valid:
@@ -1029,7 +1074,7 @@ def generate_hints(item_spheres:dict, logic_settings):
     valid = True
     for loc in region["item_set"]:
       item = search_for_location(item_spheres, loc)
-      if item_is_useful(item, logic_settings):
+      if item_is_useful(item, item_spheres, logic_settings):
         valid = False
         break
     if valid:
@@ -1038,19 +1083,22 @@ def generate_hints(item_spheres:dict, logic_settings):
       else:
         valid_barren_regions.append(i)
 
-  random.shuffle(valid_barren_categories)
+  random.shuffle(valid_barren_dungeons)
+  random.shuffle(valid_barren_regions)
   if len(valid_barren_dungeons) > 0:
     random.shuffle(valid_barren_dungeons)
-    valid_barren_categories.insert(0, valid_barren_dungeons[0])
+    valid_barren_regions.insert(0, valid_barren_dungeons[0])
+    print(f"=== Found {len(valid_barren_dungeons)} barren dungeons!")
 
   if len(valid_barren_regions) > 0:
     for i,barren_region in enumerate(valid_barren_regions):
       if i >= barren_region_hint_count:
         break
       barren_region_hint += f"  {barren_regions[barren_region]['category']}\n"
+    print(f"=== Found {len(valid_barren_regions)} barren regions!")
   else:
     barren_region_hint = "  Could not generate"
-  barren_region_empty_hints = barren_region_hint_count - len(valid_barren_regions)
+  barren_region_empty_hints = max(barren_region_hint_count - len(valid_barren_regions), 0)
   sometimes_hint_count += barren_region_empty_hints # add any unfilled barren region hints with more sometimes hints
 
   # display what items are available in the always hints
@@ -1059,7 +1107,12 @@ def generate_hints(item_spheres:dict, logic_settings):
     if 'req' in hint:
       if getattr(logic_settings, hint['req']) != hint['req_val']:
         continue
-    always_hints += f"  {hint['name']} is {search_for_location(item_spheres, hint['check'])}\n"
+    item = search_for_location(item_spheres, hint['check'])
+    important = item_is_useful(item, item_spheres, logic_settings)
+    detail_text = '(Required)' if important else '(Optional)'
+    if not '*' in item:
+      detail_text = ''
+    always_hints += f"  {hint['name']} is {item} {detail_text}\n"
 
   # pick a subset of sometimes hints at random to output
   sometimes_hints = ""
@@ -1068,7 +1121,12 @@ def generate_hints(item_spheres:dict, logic_settings):
   for i,k in enumerate(sometimes_keys):
     if i >= sometimes_hint_count:
       break
-    sometimes_hints += f"  {k} is {search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])}\n"
+    item = search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])
+    important = item_is_useful(item, item_spheres, logic_settings)
+    detail_text = '(Required)' if important else '(Optional)'
+    if not '*' in item:
+      detail_text = ''
+    sometimes_hints += f"  {k} is {item} {detail_text}\n"
 
   # output the hints data file
   with open("./res/hints.txt", "w", encoding="utf-8") as file:
