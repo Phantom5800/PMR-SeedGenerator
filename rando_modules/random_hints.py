@@ -242,23 +242,6 @@ def item_is_useful(item:str, logic_settings) -> bool:
   return True
 
 def generate_hints(item_spheres:dict, logic_settings):
-  # display what items are available in the always hints
-  always_hints = ""
-  for hint in always_hint_to_check_mapping:
-    if 'req' in hint:
-      if getattr(logic_settings, hint['req']) != hint['req_val']:
-        continue
-    always_hints += f"  {hint['name']} is {search_for_location(item_spheres, hint['check'])}\n"
-
-  # pick a subset of sometimes hints at random to output
-  sometimes_hints = ""
-  sometimes_keys = list(sometimes_hint_to_check_mapping.keys())
-  random.shuffle(sometimes_keys)
-  for i,k in enumerate(sometimes_keys):
-    if i >= sometimes_hint_count:
-      break
-    sometimes_hints += f"  {k} is {search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])}\n"
-
   # useful barren hint generation data
   letter_turnin = search_for_location(item_spheres, "Train Station - Parakarry Partner")
   letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, logic_settings)
@@ -291,6 +274,25 @@ def generate_hints(item_spheres:dict, logic_settings):
       valid_barren_categories.append(i)
   if len(valid_barren_categories) > 0:
     barren_category = f"  {barren_categories[random.choice(valid_barren_categories)]['category']} yields no progression\n"
+  else:
+    sometimes_hint_count += 1 # give an extra sometimes hint if no barren category could be generated
+
+  # display what items are available in the always hints
+  always_hints = ""
+  for hint in always_hint_to_check_mapping:
+    if 'req' in hint:
+      if getattr(logic_settings, hint['req']) != hint['req_val']:
+        continue
+    always_hints += f"  {hint['name']} is {search_for_location(item_spheres, hint['check'])}\n"
+
+  # pick a subset of sometimes hints at random to output
+  sometimes_hints = ""
+  sometimes_keys = list(sometimes_hint_to_check_mapping.keys())
+  random.shuffle(sometimes_keys)
+  for i,k in enumerate(sometimes_keys):
+    if i >= sometimes_hint_count:
+      break
+    sometimes_hints += f"  {k} is {search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])}\n"
 
   # output the hints data file
   with open("./res/hints.txt", "w", encoding="utf-8") as file:
