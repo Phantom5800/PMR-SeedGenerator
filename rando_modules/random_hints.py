@@ -1045,7 +1045,7 @@ def generate_hints(item_spheres:dict, logic_settings):
 
   if len(valid_barren_regions) > 0:
     for i,barren_region in enumerate(valid_barren_regions):
-      if i > barren_region_hint_count:
+      if i >= barren_region_hint_count:
         break
       barren_region_hint += f"  {barren_regions[barren_region]['category']}\n"
   else:
