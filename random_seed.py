@@ -33,6 +33,7 @@ from rando_modules.modify_entrances import (
 )
 from rando_modules.random_entrances import shuffle_dungeon_entrances
 from rando_modules.random_formations import get_random_formations
+from rando_modules.random_hints import generate_hints
 from rando_modules.random_map_mirroring import get_mirrored_map_list
 from rando_modules.random_movecosts import get_randomized_moves
 from rando_modules.random_mystery import get_random_mystery
@@ -278,6 +279,8 @@ class RandomSeed:
                     starting_items=[x for x in self.starting_items if x.item_type != "ITEM"],
                     world_graph=modified_world_graph,
                 )
+
+                generate_hints(self.item_spheres_dict)
 
                 break
 
