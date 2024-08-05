@@ -48,7 +48,7 @@ sometimes_hint_count = 4
 # if 0 key items are found, category can be hinted barren
 barren_categories = [
   {
-    "category": "Letters",
+    "category": "Letter Delivery",
     "item_set": [
       "Plaza District - Merlon Letter Reward",
       "Southern District - Fice T. Letter Reward",
@@ -102,7 +102,7 @@ barren_categories = [
     "req_val": True
   },
   {
-    "category": "Tall Blocks",
+    "category": "Ultra Boots",
     "item_set": [
       "Hall to Ultra Boots (B3) - Hidden Block",
       "Hall to Ultra Boots (B3) - Yellow Block Left",
@@ -119,7 +119,7 @@ barren_categories = [
     ]
   },
   {
-    "category": "Ultra Hammer Blocks",
+    "category": "Ultra Hammer",
     "item_set": [
       "Dizzy Stomp Room - In Chest",
       "Ultra Boots Room (B3) - In Big Chest",
@@ -166,6 +166,8 @@ barren_categories = [
   },
 ]
 
+# incredibly naive recursive search through item sphere's by location name
+# there's 100% a better way, but this was easy for a prototype
 def search_for_location(item_spheres:dict, location:str) -> str:
   if isinstance(item_spheres, dict):
     if location in item_spheres:
@@ -177,6 +179,7 @@ def search_for_location(item_spheres:dict, location:str) -> str:
   return "[Nothing Found]"
 
 def generate_hints(item_spheres:dict, logic_settings):
+  # display what items are available in the always hints
   always_hints = ""
   for hint in always_hint_to_check_mapping:
     if 'req' in hint:
@@ -184,6 +187,7 @@ def generate_hints(item_spheres:dict, logic_settings):
         continue
     always_hints += f"  {hint['name']} is {search_for_location(item_spheres, hint['check'])}\n"
 
+  # pick a subset of sometimes hints at random to output
   sometimes_hints = ""
   sometimes_keys = list(sometimes_hint_to_check_mapping.keys())
   random.shuffle(sometimes_keys)
@@ -192,6 +196,7 @@ def generate_hints(item_spheres:dict, logic_settings):
       break
     sometimes_hints += f"  {k} is {search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])}\n"
 
+  # search for barren categories and choose one at random
   barren_category = "  Could not generate"
   valid_barren_categories = []
   for i,cat in enumerate(barren_categories):
@@ -209,6 +214,7 @@ def generate_hints(item_spheres:dict, logic_settings):
   if len(valid_barren_categories) > 0:
     barren_category = f"  {barren_categories[random.choice(valid_barren_categories)]['category']} yields no progression\n"
 
+  # output the hints data file
   with open("./res/hints.txt", "w", encoding="utf-8") as file:
     file.write("Hints:\n")
     file.write("===================================\n")
