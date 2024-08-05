@@ -2,21 +2,43 @@ import json
 import random
 
 # always hints are always generated
-always_hint_to_check_mapping = {
-  "Blooper Chest": "Blooper Boss 1 (B1) - Blooper Fight Reward",
-  "Lakilester": "(NW) Lakilester - Lakilester Partner",
-  "Yoshi Chief": "Village Cove - Village Leader Reward"
-}
+always_hint_to_check_mapping = [
+  {
+    "name": "Blooper Chest",
+    "check": "Blooper Boss 1 (B1) - Blooper Fight Reward"
+  },
+  {
+    "name": "Dry Dry Ruins 4th Key Pedestal",
+    "check": "Lunar Stone Room - On Pedestal"
+  },
+  {
+    "name": "Goomba King's Tree",
+    "check": "Goomba Kings Castle - In Tree Left Of Fortress",
+    "req": "prologue_open",
+    "req_val": False
+  },
+  {
+    "name": "Lakilester",
+    "check": "(NW) Lakilester - Lakilester Partner"
+  },
+  {
+    "name": "Yoshi Chief",
+    "check": "Village Cove - Village Leader Reward"
+  }
+]
 
 # a subset of sometimes hints are generated at random each time
 sometimes_hint_to_check_mapping = {
   "Anti Guy Chest": "BLU Anti-Guy Hall - In Chest",
+  "Kolorado Camp Tree": "W3 Kolorados Camp - In Tree",
   "Kolorado Vase": "Village Buildings - Kolorado Volcano Vase Reward",
   "Lantern Ghost": "RED Lantern Ghost - Watt Partner",
   "Mayor Penguin": "Shiver City Mayor Area - Mayor Penguin Gift",
   "Merle": "Starborn Valley - Merle Gift",
   "Moles": "(East) Petunias Field - Petunia Gift",
   "Parakarry Letters": "Train Station - Parakarry Partner",
+  "Shiver Mountain Sanctuary": "Merlars Sanctuary - On Pedestal",
+  "Volcano Chest": "Sushi Tree - In Volcano Chest",
   "Yellow Yoshi": "Village Buildings - Yellow Yoshi Food Reward",
 }
 sometimes_hint_count = 4
@@ -31,10 +53,13 @@ def search_for_location(item_spheres:dict, location:str) -> str:
         return result
   return "[Nothing Found]"
 
-def generate_hints(item_spheres:dict):
+def generate_hints(item_spheres:dict, logic_settings):
   always_hints = ""
-  for k in always_hint_to_check_mapping:
-    always_hints += f"  {k} is {search_for_location(item_spheres, always_hint_to_check_mapping[k])}\n"
+  for hint in always_hint_to_check_mapping:
+    if 'req' in hint:
+      if getattr(logic_settings, hint['req']) != hint['req_val']:
+        continue
+    always_hints += f"  {hint['name']} is {search_for_location(item_spheres, hint['check'])}\n"
 
   sometimes_hints = ""
   sometimes_keys = list(sometimes_hint_to_check_mapping.keys())

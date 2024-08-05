@@ -280,7 +280,7 @@ class RandomSeed:
                     world_graph=modified_world_graph,
                 )
 
-                generate_hints(self.item_spheres_dict)
+                generate_hints(self.item_spheres_dict, logic_settings)
 
                 break
 
