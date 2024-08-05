@@ -242,6 +242,8 @@ def item_is_useful(item:str, logic_settings) -> bool:
   return True
 
 def generate_hints(item_spheres:dict, logic_settings):
+  global sometimes_hint_count
+
   # useful barren hint generation data
   letter_turnin = search_for_location(item_spheres, "Train Station - Parakarry Partner")
   letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, logic_settings)
