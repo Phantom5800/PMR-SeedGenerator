@@ -53,16 +53,17 @@ barren_categories = [
     "category": "Letter Delivery",
     "item_set": [
       "Plaza District - Merlon Letter Reward",
+      "Koopa Village 2 - Kolorado Letter Reward",
+      "Koopa Village 1 - Mort T. Letter Reward",
+      "E1 Nomadimouse - Nomadimouse Letter Reward",
+      "Goomba Village - Goompa Letter Reward",
       "Southern District - Fice T. Letter Reward",
       "Basement - Igor Letter Reward",
       "Gate District - Russ T. Letter Reward",
-      "E1 Nomadimouse - Nomadimouse Letter Reward",
       "Plaza District - Minh T. Letter Reward",
-      "Koopa Village 2 - Kolorado Letter Reward",
       "Shiver City Mayor Area - Mayor Penguin Letter Reward",
-      "Goomba Village - Goompa Letter Reward",
+      "Merluvlees House - Merlow Letter Reward"
       "Goomba Village - Goompapa Letter Reward 1",
-      "Merluvlees House - Merlow Letter Reward",
       "Ruined Castle Grounds - Muss T. Letter Reward"
       "Koopa Village 1 - Koover Letter Reward 1",
       "Port District - Fishmael Letter Reward",
@@ -78,7 +79,7 @@ barren_categories = [
       "Goomba Village - Goompapa Letter Reward 2"
     ],
     "req": "include_letters_mode",
-    "req_val": 3,
+    "req_val": 3, # full random
     "priority": 1
   },
   {
@@ -106,6 +107,45 @@ barren_categories = [
     "priority": 1
   },
   {
+    "category": "Letter Delivery",
+    "item_set": [
+      "Plaza District - Merlon Letter Reward",
+      "Koopa Village 2 - Kolorado Letter Reward",
+      "Koopa Village 1 - Mort T. Letter Reward",
+      "E1 Nomadimouse - Nomadimouse Letter Reward",
+      "Goomba Village - Goompa Letter Reward",
+      "Southern District - Fice T. Letter Reward",
+      "Basement - Igor Letter Reward",
+      "Gate District - Russ T. Letter Reward",
+      "Plaza District - Minh T. Letter Reward",
+      "Shiver City Mayor Area - Mayor Penguin Letter Reward",
+      "Merluvlees House - Merlow Letter Reward"
+    ],
+    "req": "include_letters_mode",
+    "req_val": 1, # vanilla letter chain
+    "priority": 2
+  },
+    {
+    "category": "Letter Delivery",
+    "item_set": [
+      "Plaza District - Merlon Letter Reward",
+      "Koopa Village 2 - Kolorado Letter Reward",
+      "Koopa Village 1 - Mort T. Letter Reward",
+      "E1 Nomadimouse - Nomadimouse Letter Reward",
+      "Goomba Village - Goompa Letter Reward",
+      "Southern District - Fice T. Letter Reward",
+      "Basement - Igor Letter Reward",
+      "Gate District - Russ T. Letter Reward",
+      "Plaza District - Minh T. Letter Reward",
+      "Shiver City Mayor Area - Mayor Penguin Letter Reward",
+      "Merluvlees House - Merlow Letter Reward"
+      "Goomba Village - Goompapa Letter Reward 2"
+    ],
+    "req": "include_letters_mode",
+    "req_val": 2, # basic letters and letter chain final letter
+    "priority": 2
+  },
+  {
     # hint only applies to items in tall blocks, does not mean the entirity of chapter 7 can be dead
     "category": "Ultra Boots",
     "item_set": [
@@ -125,18 +165,6 @@ barren_categories = [
     "priority": 2
   },
   {
-    # hint only applies to items behind metal blocks
-    "category": "Ultra Hammer",
-    "item_set": [
-      "Dizzy Stomp Room - In Chest",
-      "Ultra Boots Room (B3) - In Big Chest",
-      "Boss Room - Yellow Block Left",
-      "Boss Room - Yellow Block Right",
-      "Metal Block Room (B3) - In SuperBlock"
-    ],
-    "priority": 2
-  },
-  {
     # hint only applies to checks behind the yellow plant, does not include the vines next to said plant
     "category": "Yellow Berry",
     "item_set": [
@@ -151,6 +179,18 @@ barren_categories = [
       "(SE) Water Level Room - In Tree 2",
       "(SE) Lilys Fountain - Lily Reward For WaterStone",
       "(SE) Lilys Fountain - In Tree"
+    ],
+    "priority": 2
+  },
+  {
+    # hint only applies to items behind metal blocks
+    "category": "Ultra Hammer",
+    "item_set": [
+      "Dizzy Stomp Room - In Chest",
+      "Ultra Boots Room (B3) - In Big Chest",
+      "Boss Room - Yellow Block Left",
+      "Boss Room - Yellow Block Right",
+      "Metal Block Room (B3) - In SuperBlock"
     ],
     "priority": 3
   },
@@ -190,6 +230,17 @@ def search_for_location(item_spheres:dict, location:str) -> str:
         return result
   return "[Nothing Found]"
 
+# check if given key item is useful for logic settings
+# 1) additional work would need to be done for glitch logic
+# 2) checking the reward for certain item turn ins should be done here as well to determine
+#    if, ex, Koopers Shell is a "required" item
+def item_is_useful(item:str, logic_settings) -> bool:
+  if item == "Goombario*":
+    return False
+  if "Letter" in item and getattr(logic_settings, "include_letters_mode") == 0:
+    return False
+  return True
+
 def generate_hints(item_spheres:dict, logic_settings):
   # display what items are available in the always hints
   always_hints = ""
@@ -208,6 +259,10 @@ def generate_hints(item_spheres:dict, logic_settings):
       break
     sometimes_hints += f"  {k} is {search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])}\n"
 
+  # useful barren hint generation data
+  letter_turnin = search_for_location(item_spheres, "Train Station - Parakarry Partner")
+  letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, logic_settings)
+
   # search for barren categories and choose one at random
   barren_category = "  Could not generate\n"
   last_priority = -1
@@ -222,7 +277,13 @@ def generate_hints(item_spheres:dict, logic_settings):
     valid = True
     for loc in cat["item_set"]:
       item = search_for_location(item_spheres, loc)
-      if '*' in item:
+
+      # skip letters if junk
+      if "Letter" in item and not letters_useful:
+        continue
+
+      # if key item that is not goombario, cannot mark barren
+      if '*' in item and item != "Goombario*":
         valid = False
         break
     if valid:
