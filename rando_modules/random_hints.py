@@ -34,19 +34,63 @@ always_hint_to_check_mapping = [
 ]
 
 # a subset of sometimes hints are generated at random each time
-sometimes_hint_to_check_mapping = {
-  "Anti Guy Chest": "BLU Anti-Guy Hall - In Chest",
-  "Kolorado Camp Tree": "W3 Kolorados Camp - In Tree",
-  "Kolorado Vase": "Village Buildings - Kolorado Volcano Vase Reward",
-  "Lantern Ghost": "RED Lantern Ghost - Watt Partner",
-  "Mayor Penguin": "Shiver City Mayor Area - Mayor Penguin Gift",
-  "Merle": "Starborn Valley - Merle Gift",
-  "Moles": "(East) Petunias Field - Petunia Gift",
-  "Parakarry Letters": "Train Station - Parakarry Partner",
-  "Shiver Mountain Sanctuary": "Merlars Sanctuary - On Pedestal",
-  "Volcano Chest": "Sushi Tree - In Volcano Chest",
-  "Yellow Yoshi": "Village Buildings - Yellow Yoshi Food Reward",
-}
+sometimes_hint_to_check_mapping = [
+  {
+    "name": "Anti Guy Chest",
+    "check": "BLU Anti-Guy Hall - In Chest",
+    "chapter": 4
+  },
+  {
+    "name": "Kolorado Camp Tree",
+    "check": "W3 Kolorados Camp - In Tree",
+    "chapter": 2
+  },
+  {
+    "name": "Kolorado Vase",
+    "check": "Village Buildings - Kolorado Volcano Vase Reward",
+    "chapter": 5
+  },
+  {
+    "name": "Lantern Ghost",
+    "check": "RED Lantern Ghost - Watt Partner",
+    "chapter": 4
+  },
+  {
+    "name": "Mayor Penguin (Bucket)",
+    "check": "Shiver City Mayor Area - Mayor Penguin Gift",
+    "chapter": 7
+  },
+  {
+    "name": "Merle (Scarf)",
+    "check": "Starborn Valley - Merle Gift",
+    "chapter": 7
+  },
+  {
+    "name": "Petunia (Moles)",
+    "check": "(East) Petunias Field - Petunia Gift",
+    "chapter": 6
+  },
+  {
+    "name": "Parakarry (3 Letters)",
+    "check": "Train Station - Parakarry Partner",
+    "chapter": 2
+  },
+  {
+    "name": "Shiver Mountain Sanctuary",
+    "check": "Merlars Sanctuary - On Pedestal",
+    "chapter": 7
+  },
+  {
+    "name": "Volcano Chest",
+    "check": "Sushi Tree - In Volcano Chest",
+    "chapter": 5
+  },
+  {
+    "name": "Yellow Yoshi",
+    "check": "Village Buildings - Yellow Yoshi Food Reward",
+    "chapter": 5
+  },
+]
 sometimes_hint_count = 4
 
 # Hint 1 barren category if possible, check all items in said group,
@@ -1088,10 +1132,11 @@ def item_is_useful(item:str, item_spheres:dict, logic_settings, star_spirits) ->
   if item == "Dolly*" and not item_is_useful(search_for_location(item_spheres, "Goomba Village - Goombaria Dolly Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
+  # TODO: FryingPan should also account for Koot items and Yellow Yoshi
   if item == "FryingPan*" \
-    and logic_settings.cook_without_fryingpan == True \
+    and (logic_settings.cook_without_fryingpan == True or 4 not in star_spirits) \
     and not item_is_useful(search_for_location(item_spheres, "Southern District - Tayce T. Frying Pan Reward"), item_spheres, logic_settings, star_spirits):
-    return False
+      return False
 
   if item == "KootKoopaLegends*":
     if logic_settings.include_favors_mode == 0:
@@ -1259,18 +1304,20 @@ def generate_hints(item_spheres:dict, logic_settings, star_spirits):
 
   # pick a subset of sometimes hints at random to output
   sometimes_hints = ""
-  sometimes_keys = list(sometimes_hint_to_check_mapping.keys())
+  sometimes_keys = list(range(len(sometimes_hint_to_check_mapping)))
   random.shuffle(sometimes_keys)
   sometimes_hints_placed = 0
   for k in sometimes_keys:
     if sometimes_hints_placed >= sometimes_hint_count:
       break
-    item = search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])
+    if sometimes_hint_to_check_mapping[k]['chapter'] not in star_spirits:
+      continue
+    item = search_for_location(item_spheres, sometimes_hint_to_check_mapping[k]['check'])
     important = item_is_useful(item, item_spheres, logic_settings, star_spirits)
     detail_text = '(Required)' if important else '(Optional)'
     if not '*' in item:
       detail_text = ''
-    sometimes_hints += f"  {k} is {item} {detail_text}\n"
+    sometimes_hints += f"  {sometimes_hint_to_check_mapping[k]['name']} is {item} {detail_text}\n"
     sometimes_hints_placed += 1
 
   # output the hints data file
@@ -1286,7 +1333,7 @@ def generate_hints(item_spheres:dict, logic_settings, star_spirits):
     file.write("Always Hints:\n")
     file.write(always_hints)
     file.write("===================================\n")
-    file.write(f"Sometimes Hints ({sometimes_hint_count}):\n")
+    file.write(f"Sometimes Hints ({sometimes_hints_placed}):\n")
     file.write(sometimes_hints)
     file.write("===================================\n")
     file.write(f"{star_spirits}\n")
