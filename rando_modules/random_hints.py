@@ -329,6 +329,7 @@ barren_regions = [
       "Sarcophagus Hall 2 - Behind Hammer Block",
       "Super Hammer Room - In Big Chest",
       "Super Hammer Room - Hidden Chest",
+      "Vertical Shaft - In SuperBlock",
       "Pyramid Stone Room - On Pedestal",
       "Lunar Stone Room - On Pedestal",
       "Diamond Stone Room - On Pedestal"
@@ -353,6 +354,7 @@ barren_regions = [
       "Hidden Bedroom (2F) - On Bed 6",
       "Stairs to Third Floor - Yellow Block",
       "Sleeping Clubbas Room (3F) - On Pedestal",
+      "Stairs to Basement - In SuperBlock",
     ],
     "dungeon": True,
     "chapter": 3
@@ -453,6 +455,7 @@ barren_regions = [
       "RED Moving Platforms - Hidden Block Left",
       "RED Moving Platforms - Yellow Block 1",
       "RED Moving Platforms - Yellow Block 2",
+      "RED Moving Platforms - In SuperBlock",
       "RED Lantern Ghost - Watt Partner",
     ],
     "dungeon": False,
@@ -474,6 +477,8 @@ barren_regions = [
       "Boss Antechamber - Hidden Panel",
       "Boss Room - Yellow Block Left",
       "Boss Room - Yellow Block Right",
+      "Fire Bar Bridge - In SuperBlock",
+      "Zipline Cavern - In SuperBlock"
     ],
     "dungeon": True,
     "chapter": 5
@@ -665,6 +670,11 @@ barren_regions = [
       "Hall to Ultra Boots (B3) - Yellow Block Left",
       "Hall to Ultra Boots (B3) - Yellow Block Right",
       "Ultra Boots Room (B3) - In Big Chest",
+      "Under the Toad Town Pond - In SuperBlock",
+      "Elevator Attic Room (B2) - In SuperBlock",
+      "Blue Pushblock Room (B2) - In SuperBlock",
+      "Metal Block Room (B3) - In SuperBlock",
+      "Frozen Room (B3) - In SuperBlock"
     ],
     "dungeon": False,
     "chapter": 0
@@ -769,6 +779,7 @@ barren_regions = [
       "Train Station - Bush 2",
       "Train Station - Bush 3",
       "Train Station - Bush Top",
+      "Train Station - In SuperBlock",
       "Mt Rugged 2 - Hidden Panel",
       "Mt Rugged 2 - Parakarry Ledge",
       "Mt Rugged 2 - Kooper Ledge",
@@ -820,6 +831,7 @@ barren_regions = [
       "S1E3 North of Oasis - Yellow Block",
       "S2E2 West of Oasis - Behind Bush",
       "S2E2 West of Oasis - In Tree",
+      "S2E3 Oasis - In SuperBlock",
       "S2E3 Oasis - In Fruit Tree (Left)",
       "S2E3 Oasis - In Fruit Tree (Right)",
       "S2E3 Oasis - In Tree (Far Left)",
@@ -952,6 +964,7 @@ barren_regions = [
       "SW Jungle (Super Block) - Underwater 3",
       "SW Jungle (Super Block) - In Tree (Top)",
       "SW Jungle (Super Block) - In Tree (Right)",
+      "SW Jungle (Super Block) - In SuperBlock",
       "NW Jungle (Large Ledge) - Bush 1",
       "NW Jungle (Large Ledge) - Bush 2",
       "NW Jungle (Large Ledge) - In Tree On Ledge",
@@ -1023,6 +1036,7 @@ barren_regions = [
     "item_set": [
       "Shiver Mountain Passage - Hidden Block",
       "Shiver Mountain Hills - Bottom Path",
+      "Shiver Mountain Hills - In SuperBlock",
       "Shiver Mountain Tunnel - Socket 1",
       "Shiver Mountain Tunnel - Socket 2",
       "Shiver Mountain Tunnel - Socket 3",
