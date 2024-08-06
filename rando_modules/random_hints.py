@@ -1061,11 +1061,23 @@ def item_is_useful(item:str, item_spheres:dict, logic_settings, star_spirits) ->
   if item == "Artifact*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kolorado Artifact Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
+  if item == "BlueKey*":
+    return True # TODO: actually determine if Blue Key is necessary (blocks Red Key)
+
   if item == "BooRecord*" and not item_is_useful(search_for_location(item_spheres, "Record Player Room - In Chest"), item_spheres, logic_settings, star_spirits):
     return False
 
+  if item == "BooWeight*":
+    return True # TODO: actually determine if Weight is necessary (blocks Bombette and both Boots upgrades)
+
   if item == "Calculator*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Rowf Calculator Reward"), item_spheres, logic_settings, star_spirits):
     return False
+
+  if item == "CrystalBall*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return item_is_useful(search_for_location(item_spheres, "Merluvlees House - Merluvlee Koopa Koot Favor"), item_spheres, logic_settings, star_spirits)
 
   if item == "CrystalBerry*" and not item_is_useful(search_for_location(item_spheres, "(West) Rosies Trellis - Rosie Gift"), item_spheres, logic_settings, star_spirits):
     return False
@@ -1081,8 +1093,62 @@ def item_is_useful(item:str, item_spheres:dict, logic_settings, star_spirits) ->
     and not item_is_useful(search_for_location(item_spheres, "Southern District - Tayce T. Frying Pan Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
+  if item == "KootKoopaLegends*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if koopa legends or anything after it is required
+
   if item == "KooperShell*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kooper Partner"), item_spheres, logic_settings, star_spirits):
     return False
+
+  if item == "KootEmptyWallet*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if wallet or anything after it is required
+
+  if item == "KootGlasses*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if glasses or anything after it is required
+
+  if item == "KootLuigiAutograph*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if autograph or anything after it is required
+
+  if item == "KootMerluvleeAutograph*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if autograph or anything after it is required
+
+  if item == "KootOldPhoto*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if photo or anything after it is required
+
+  if item == "KootPackage*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if package or anything after it is required
+
+  if item == "KootRedJar*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Favor 20 Reward (RedJar)"), item_spheres, logic_settings, star_spirits)
+
+  if item == "KootTheTape*":
+    if logic_settings.include_favors_mode == 0:
+      return False
+    else:
+      return True # TODO: determine if tape or anything after it is required
 
   if item == "Lyrics*" and not item_is_useful(search_for_location(item_spheres, "Outpost 1 - Composer Lyrics Reward"), item_spheres, logic_settings, star_spirits):
     return False
