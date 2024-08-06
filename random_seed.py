@@ -176,10 +176,7 @@ class RandomSeed:
 
                 ## Setup star spirits, power stars, and relevant logic
                 chosen_spirits = []
-                if (    logic_settings.require_specific_spirits
-                    and 0 < logic_settings.starway_spirits_needed_count < 7
-                ):
-                    all_spirits = [
+                all_spirits = [
                         StarSpirits.ELDSTAR,
                         StarSpirits.MAMAR,
                         StarSpirits.SKOLAR,
@@ -188,6 +185,9 @@ class RandomSeed:
                         StarSpirits.KLEVAR,
                         StarSpirits.KALMAR,
                     ]
+                if (    logic_settings.require_specific_spirits
+                    and 0 < logic_settings.starway_spirits_needed_count < 7
+                ):
                     for _ in range(logic_settings.starway_spirits_needed_count):
                         rnd_spirit = random.randint(0, len(all_spirits) - 1)
                         chosen_spirits.append(all_spirits.pop(rnd_spirit))
@@ -280,7 +280,11 @@ class RandomSeed:
                     world_graph=modified_world_graph,
                 )
 
-                generate_hints(self.item_spheres_dict, logic_settings)
+                generate_hints(
+                    self.item_spheres_dict,
+                    logic_settings,
+                    chosen_spirits if len(chosen_spirits) > 0 else all_spirits
+                )
 
                 break
 

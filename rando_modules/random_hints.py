@@ -5,26 +5,31 @@ import random
 always_hint_to_check_mapping = [
   {
     "name": "Blooper Chest",
-    "check": "Blooper Boss 1 (B1) - Blooper Fight Reward"
+    "check": "Blooper Boss 1 (B1) - Blooper Fight Reward",
+    "chapter": 0
   },
   {
     "name": "Dry Dry Ruins 4th Key Pedestal",
-    "check": "Lunar Stone Room - On Pedestal"
+    "check": "Lunar Stone Room - On Pedestal",
+    "chapter": 2
   },
   {
     # this check is hinted when prologue is closed
     "name": "Goomba King's Tree",
     "check": "Goomba Kings Castle - In Tree Left Of Fortress",
     "req": "prologue_open",
-    "req_val": False
+    "req_val": False,
+    "chapter": 0
   },
   {
     "name": "Lakilester",
-    "check": "(NW) Lakilester - Lakilester Partner"
+    "check": "(NW) Lakilester - Lakilester Partner",
+    "chapter": 6
   },
   {
     "name": "Yoshi Chief",
-    "check": "Village Cove - Village Leader Reward"
+    "check": "Village Cove - Village Leader Reward",
+    "chapter": 5
   }
 ]
 
@@ -80,7 +85,8 @@ barren_categories = [
     ],
     "req": "include_letters_mode",
     "req_val": 3, # full random
-    "priority": 1
+    "priority": 1,
+    "chapter": 0
   },
   {
     "category": "Rowf",
@@ -104,7 +110,8 @@ barren_categories = [
     ],
     "req": "progression_on_rowf",
     "req_val": 5,
-    "priority": 1
+    "priority": 1,
+    "chapter": 0
   },
   {
     "category": "Letter Delivery",
@@ -123,7 +130,8 @@ barren_categories = [
     ],
     "req": "include_letters_mode",
     "req_val": 1, # vanilla letter chain
-    "priority": 2
+    "priority": 2,
+    "chapter": 0
   },
     {
     "category": "Letter Delivery",
@@ -143,7 +151,8 @@ barren_categories = [
     ],
     "req": "include_letters_mode",
     "req_val": 2, # basic letters and letter chain final letter
-    "priority": 2
+    "priority": 2,
+    "chapter": 0
   },
   {
     # hint only applies to items in tall blocks, does not mean the entirity of chapter 7 can be dead
@@ -162,7 +171,8 @@ barren_categories = [
       "Huge Statue Room - Yellow Block",
       "Small Statue Room - Hidden Block"
     ],
-    "priority": 2
+    "priority": 2,
+    "chapter": 0
   },
   {
     # hint only applies to checks behind the yellow plant, does not include the vines next to said plant
@@ -180,7 +190,8 @@ barren_categories = [
       "(SE) Lilys Fountain - Lily Reward For WaterStone",
       "(SE) Lilys Fountain - In Tree"
     ],
-    "priority": 2
+    "priority": 2,
+    "chapter": 6
   },
   {
     # hint only applies to items behind metal blocks
@@ -192,7 +203,8 @@ barren_categories = [
       "Boss Room - Yellow Block Right",
       "Metal Block Room (B3) - In SuperBlock"
     ],
-    "priority": 3
+    "priority": 3,
+    "chapter": 0
   },
   {
     "category": "Coconut Trees",
@@ -209,7 +221,8 @@ barren_categories = [
       "Village Cove - In Palm Tree Right",
       "Village Buildings - In Palm Tree"
     ],
-    "priority": 3
+    "priority": 3,
+    "chapter": 5
   },
   {
     "category": "Blue Berry",
@@ -219,7 +232,8 @@ barren_categories = [
       "(West) Path to Maze - Upper Hidden Block",
       "(West) Path to Maze - Lower Hidden Block"
     ],
-    "priority": 3
+    "priority": 3,
+    "chapter": 6
   },
   {
     "category": "Red Berry",
@@ -231,7 +245,8 @@ barren_categories = [
       "(SW) Path to Crystal Tree - In Tree 1",
       "(SW) Path to Crystal Tree - In Tree 2"
     ],
-    "priority": 3
+    "priority": 3,
+    "chapter": 6
   },
 ]
 
@@ -256,7 +271,8 @@ barren_regions = [
       "Dungeon Fire Room - On The Ground",
       "Battlement - Block Behind Rock"
     ],
-    "dungeon": True
+    "dungeon": True,
+    "chapter": 1
   },
   {
     "category": "Dry Dry Ruins",
@@ -273,7 +289,8 @@ barren_regions = [
       "Lunar Stone Room - On Pedestal",
       "Diamond Stone Room - On Pedestal"
     ],
-    "dungeon": True
+    "dungeon": True,
+    "chapter": 2
   },
   {
     "category": "Tubba's Castle",
@@ -293,7 +310,8 @@ barren_regions = [
       "Stairs to Third Floor - Yellow Block",
       "Sleeping Clubbas Room (3F) - On Pedestal",
     ],
-    "dungeon": True
+    "dungeon": True,
+    "chapter": 3
   },
   {
     "category": "Blue Station",
@@ -327,7 +345,8 @@ barren_regions = [
       "BLU Anti-Guy Hall - Hidden Block",
       "BLU Anti-Guy Hall - Yellow Block",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 4
   },
   {
     "category": "Pink Station",
@@ -349,7 +368,8 @@ barren_regions = [
       "PNK Tracks Hallway - Yellow Block North 1",
       "PNK Tracks Hallway - Yellow Block North 2",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 4
   },
   {
     "category": "Green Station",
@@ -373,7 +393,8 @@ barren_regions = [
       "GRN Treadmills/Slot Machine - Hidden Room 6",
       "GRN Treadmills/Slot Machine - Defeat Shy Guy",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 4
   },
   {
     "category": "Red Station",
@@ -390,7 +411,8 @@ barren_regions = [
       "RED Moving Platforms - Yellow Block 2",
       "RED Lantern Ghost - Watt Partner",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 4
   },
   {
     "category": "Mt. Lavalava",
@@ -409,7 +431,8 @@ barren_regions = [
       "Boss Room - Yellow Block Left",
       "Boss Room - Yellow Block Right",
     ],
-    "dungeon": True
+    "dungeon": True,
+    "chapter": 5
   },
   {
     "category": "Crystal Palace",
@@ -428,7 +451,8 @@ barren_regions = [
       "P-Up, D-Down Room - In Chest",
       "Triple Dip Room - In Chest",
     ],
-    "dungeon": True
+    "dungeon": True,
+    "chapter": 7
   },
   {
     "category": "Goomba Village",
@@ -444,7 +468,8 @@ barren_regions = [
       "Goomba Village - Goompa Letter Reward",
       "Goomba Village - Goompa Koopa Koot Favor"
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 0
   },
   {
     "category": "Goomba Playground", # includes the two screens between village and playground
@@ -469,7 +494,8 @@ barren_regions = [
       "Behind the Village - On Ledge",
       "Behind the Village - In Tree",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 0
   },
   {
     "category": "Goomba Road", # includes Goomba King's Castle room and room before Toad Town
@@ -484,7 +510,8 @@ barren_regions = [
       "Goomba Kings Castle - In Tree Right Of Cliff",
       "Goomba Kings Castle - Hidden Yellow Block",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 0
   },
   {
     "category": "Toad Town",
@@ -553,7 +580,8 @@ barren_regions = [
       "Station District - Dane T. Letter Reward 2",
       "Southern District - Fice T. Forest Pass",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 0
   },
   {
     "category": "Toad Town Tunnels",
@@ -594,7 +622,8 @@ barren_regions = [
       "Hall to Ultra Boots (B3) - Yellow Block Right",
       "Ultra Boots Room (B3) - In Big Chest",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 0
   },
   {
     "category": "Pleasant Path",
@@ -619,7 +648,8 @@ barren_regions = [
       "Pleasant Crossroads - Hidden Panel",
       "Path to Fortress 1 - Hidden Panel",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 1
   },
   {
     "category": "Koopa Village",
@@ -672,7 +702,8 @@ barren_regions = [
       "Koopa Village 2 - Favor 19 Reward (Coconut)",
       "Koopa Village 2 - Favor 20 Reward (RedJar)",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 1
   },
   {
     "category": "Mt. Rugged",
@@ -708,7 +739,8 @@ barren_regions = [
       "Train Station - Parakarry Partner",
       "Mt Rugged 1 - Hurting Whacka",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 2
   },
   {
     "category": "Dry Dry Desert",
@@ -753,7 +785,8 @@ barren_regions = [
       "S3E3 South of Oasis - In Tree (Far Right)",
       "E1 Nomadimouse - Nomadimouse Letter Reward",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 2
   },
   {
     "category": "Dry Dry Outpost",
@@ -774,7 +807,8 @@ barren_regions = [
       "Outpost 2 - Merlee Request (Koopa Koot Favor)",
       "Outpost 1 - Store Legend (RedJar Code)",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 2
   },
   {
     "category": "Forever Forest", # includes 2 checks outside boo's mansion
@@ -785,7 +819,8 @@ barren_regions = [
       "Outside Boos Mansion - In Bush (Back Right)",
       "Outside Boos Mansion - Yellow Block",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 3
   },
   {
     "category": "Boo's Mansion",
@@ -814,7 +849,8 @@ barren_regions = [
       "Basement - Igor Letter Reward",
       "Foyer - From Franky (Koopa Koot Favor)",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 3
   },
   {
     "category": "Gusty Gulch", # includes the hidden panel past the gate
@@ -831,7 +867,8 @@ barren_regions = [
       "Wasteland Ascent 2 - Yellow Block Right",
       "Ghost Town 1 - From Boo (Koopa Koot Favor)",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 3
   },
   {
     "category": "Jade Jungle", # includes beach
@@ -889,7 +926,8 @@ barren_regions = [
       "Great Tree Vine Ascent - End Of Vine",
       "Path to the Volcano - Raphael Gift",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 5
   },
   {
     "category": "Yoshi Village",
@@ -909,7 +947,8 @@ barren_regions = [
       "Village Buildings - Yellow Yoshi Food Reward",
       "Village Buildings - Red Yoshi Kid Letter Reward"
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 5
   },
   {
     "category": "Shiver City",
@@ -932,7 +971,8 @@ barren_regions = [
       "Shiver City Center - Snowmen Gift 5",
       "Shiver City Mayor Area - Mayor Penguin Letter Reward"
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 7
   },
   {
     "category": "Shiver Mountain",
@@ -946,7 +986,8 @@ barren_regions = [
       "Shiver Mountain Peaks - Red Block",
       "Merlars Sanctuary - On Pedestal",
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 7
   },
   {
     "category": "Shiver Snowfield", # includes Starborn Valley
@@ -959,10 +1000,38 @@ barren_regions = [
       "Starborn Valley - Merle Gift",
       "Starborn Valley - Frost T. Letter Reward"
     ],
-    "dungeon": False
+    "dungeon": False,
+    "chapter": 7
   },
 ]
 barren_region_hint_count = 3
+
+important_key_item_chapter_mapping = {
+  "KoopaFortressKey*": 1,
+  "PulseStone*": 2,
+  "RuinsKey*": 2,
+  "PyramidStone*": 2,
+  "DiamondStone*": 2,
+  "LunarStone*": 2,
+  "BooPortrait*": 3,
+  "TubbaCastleKey*": 3,
+  "ToyTrain*": 4,
+  "MysteryNote*": 4,
+  "Dictionary*": 4,
+  "JadeRaven*": 5,
+  "MagicalSeed1*": 6,
+  "MagicalSeed2*": 6,
+  "MagicalSeed3*": 6,
+  "MagicalSeed4*": 6,
+  "MagicalBean*": 6,
+  "FertileSoil*": 6,
+  "MiracleWater*": 6,
+  "WarehouseKey*": 7,
+  "SnowmanBucket*": 7,
+  "SnowmanScarf*": 7,
+  "RedKey*": 7,
+  "CrystalPalaceKey*": 7
+}
 
 # incredibly naive recursive search through item sphere's by location name
 # there's 100% a better way, but this was easy for a prototype
@@ -980,64 +1049,67 @@ def search_for_location(item_spheres:dict, location:str) -> str:
 # 1) additional work would need to be done for glitch logic
 # 2) checking the reward for certain item turn ins should be done here as well to determine
 #    if, ex, Koopers Shell is a "required" item
-def item_is_useful(item:str, item_spheres:dict, logic_settings) -> bool:
+def item_is_useful(item:str, item_spheres:dict, logic_settings, star_spirits) -> bool:
   if item == "Goombario*":
     return False
 
   if "Letter" in item \
     and getattr(logic_settings, "include_letters_mode") == 0 \
-    and not item_is_useful(search_for_location(item_spheres, "Train Station - Parakarry Partner"), item_spheres, logic_settings):
+    and not item_is_useful(search_for_location(item_spheres, "Train Station - Parakarry Partner"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "Artifact*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kolorado Artifact Reward"), item_spheres, logic_settings):
+  if item == "Artifact*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kolorado Artifact Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "BooRecord*" and not item_is_useful(search_for_location(item_spheres, "Record Player Room - In Chest"), item_spheres, logic_settings):
+  if item == "BooRecord*" and not item_is_useful(search_for_location(item_spheres, "Record Player Room - In Chest"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "Calculator*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Rowf Calculator Reward"), item_spheres, logic_settings):
+  if item == "Calculator*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Rowf Calculator Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "CrystalBerry*" and not item_is_useful(search_for_location(item_spheres, "(West) Rosies Trellis - Rosie Gift"), item_spheres, logic_settings):
+  if item == "CrystalBerry*" and not item_is_useful(search_for_location(item_spheres, "(West) Rosies Trellis - Rosie Gift"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "Dictionary*" and not item_is_useful(search_for_location(item_spheres, "Gate District - Russ T. Dictionary Reward"), item_spheres, logic_settings):
+  if item == "Dictionary*" and not item_is_useful(search_for_location(item_spheres, "Gate District - Russ T. Dictionary Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "Dolly*" and not item_is_useful(search_for_location(item_spheres, "Goomba Village - Goombaria Dolly Reward"), item_spheres, logic_settings):
+  if item == "Dolly*" and not item_is_useful(search_for_location(item_spheres, "Goomba Village - Goombaria Dolly Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
   if item == "FryingPan*" \
     and logic_settings.cook_without_fryingpan == True \
-    and not item_is_useful(search_for_location(item_spheres, "Southern District - Tayce T. Frying Pan Reward"), item_spheres, logic_settings):
+    and not item_is_useful(search_for_location(item_spheres, "Southern District - Tayce T. Frying Pan Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "KooperShell*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kooper Partner"), item_spheres, logic_settings):
+  if item == "KooperShell*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kooper Partner"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "Lyrics*" and not item_is_useful(search_for_location(item_spheres, "Outpost 1 - Composer Lyrics Reward"), item_spheres, logic_settings):
+  if item == "Lyrics*" and not item_is_useful(search_for_location(item_spheres, "Outpost 1 - Composer Lyrics Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "MailBag*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Postmaster MailBag Reward"), item_spheres, logic_settings):
+  if item == "MailBag*" and not item_is_useful(search_for_location(item_spheres, "Plaza District - Postmaster MailBag Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "Melody*" and not item_is_useful(search_for_location(item_spheres, "Port District - Poet Melody Reward"), item_spheres, logic_settings):
+  if item == "Melody*" and not item_is_useful(search_for_location(item_spheres, "Port District - Poet Melody Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "VolcanoVase*" and not item_is_useful(search_for_location(item_spheres, "Village Buildings - Kolorado Volcano Vase Reward"), item_spheres, logic_settings):
+  if item == "VolcanoVase*" and not item_is_useful(search_for_location(item_spheres, "Village Buildings - Kolorado Volcano Vase Reward"), item_spheres, logic_settings, star_spirits):
     return False
 
-  if item == "WaterStone*" and not item_is_useful(search_for_location(item_spheres, "(SE) Lilys Fountain - Lily Reward For WaterStone"), item_spheres, logic_settings):
+  if item == "WaterStone*" and not item_is_useful(search_for_location(item_spheres, "(SE) Lilys Fountain - Lily Reward For WaterStone"), item_spheres, logic_settings, star_spirits):
+    return False
+
+  if item in important_key_item_chapter_mapping and important_key_item_chapter_mapping[item] not in star_spirits:
     return False
 
   return '*' in item
 
-def generate_hints(item_spheres:dict, logic_settings):
+def generate_hints(item_spheres:dict, logic_settings, star_spirits):
   global sometimes_hint_count
 
   # useful barren hint generation data
   letter_turnin = search_for_location(item_spheres, "Train Station - Parakarry Partner")
-  letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, item_spheres, logic_settings)
+  letters_useful = getattr(logic_settings, "include_letters_mode") > 0 or item_is_useful(letter_turnin, item_spheres, logic_settings, star_spirits)
 
   # search for barren categories and choose one at random
   barren_category_hint = "  Could not generate\n"
@@ -1047,20 +1119,22 @@ def generate_hints(item_spheres:dict, logic_settings):
     # exit early if barren categories of higher priority have been found already
     if last_priority > 0 and cat["priority"] > last_priority:
       break
-    if 'req' in cat:
-      if getattr(logic_settings, cat['req']) != cat['req_val']:
-        continue
-    valid = True
-    for loc in cat["item_set"]:
-      item = search_for_location(item_spheres, loc)
+    # only look through categories logically available before goal is met
+    if cat['chapter'] == 0 or cat['chapter'] in star_spirits:
+      if 'req' in cat:
+        if getattr(logic_settings, cat['req']) != cat['req_val']:
+          continue
+      valid = True
+      for loc in cat["item_set"]:
+        item = search_for_location(item_spheres, loc)
 
-      # if key item that is not goombario, cannot mark barren
-      if item_is_useful(item, item_spheres, logic_settings):
-        valid = False
-        break
-    if valid:
-      last_priority = cat["priority"]
-      valid_barren_categories.append(i)
+        # if key item that is not goombario, cannot mark barren
+        if item_is_useful(item, item_spheres, logic_settings, star_spirits):
+          valid = False
+          break
+      if valid:
+        last_priority = cat["priority"]
+        valid_barren_categories.append(i)
   if len(valid_barren_categories) > 0:
     barren_category_hint = f"  {barren_categories[random.choice(valid_barren_categories)]['category']} yields no progression\n"
   else:
@@ -1071,17 +1145,19 @@ def generate_hints(item_spheres:dict, logic_settings):
   valid_barren_dungeons = []
   valid_barren_regions = []
   for i,region in enumerate(barren_regions):
-    valid = True
-    for loc in region["item_set"]:
-      item = search_for_location(item_spheres, loc)
-      if item_is_useful(item, item_spheres, logic_settings):
-        valid = False
-        break
-    if valid:
-      if region["dungeon"]:
-        valid_barren_dungeons.append(i)
-      else:
-        valid_barren_regions.append(i)
+    # only look through categories logically available before goal is met
+    if region['chapter'] == 0 or region['chapter'] in star_spirits:
+      valid = True
+      for loc in region["item_set"]:
+        item = search_for_location(item_spheres, loc)
+        if item_is_useful(item, item_spheres, logic_settings, star_spirits):
+          valid = False
+          break
+      if valid:
+        if region["dungeon"]:
+          valid_barren_dungeons.append(i)
+        else:
+          valid_barren_regions.append(i)
 
   random.shuffle(valid_barren_dungeons)
   random.shuffle(valid_barren_regions)
@@ -1104,29 +1180,32 @@ def generate_hints(item_spheres:dict, logic_settings):
   # display what items are available in the always hints
   always_hints = ""
   for hint in always_hint_to_check_mapping:
-    if 'req' in hint:
-      if getattr(logic_settings, hint['req']) != hint['req_val']:
-        continue
-    item = search_for_location(item_spheres, hint['check'])
-    important = item_is_useful(item, item_spheres, logic_settings)
-    detail_text = '(Required)' if important else '(Optional)'
-    if not '*' in item:
-      detail_text = ''
-    always_hints += f"  {hint['name']} is {item} {detail_text}\n"
+    if hint['chapter'] == 0 or hint['chapter'] in star_spirits:
+      if 'req' in hint:
+        if getattr(logic_settings, hint['req']) != hint['req_val']:
+          continue
+      item = search_for_location(item_spheres, hint['check'])
+      important = item_is_useful(item, item_spheres, logic_settings, star_spirits)
+      detail_text = '(Required)' if important else '(Optional)'
+      if not '*' in item:
+        detail_text = ''
+      always_hints += f"  {hint['name']} is {item} {detail_text}\n"
 
   # pick a subset of sometimes hints at random to output
   sometimes_hints = ""
   sometimes_keys = list(sometimes_hint_to_check_mapping.keys())
   random.shuffle(sometimes_keys)
-  for i,k in enumerate(sometimes_keys):
-    if i >= sometimes_hint_count:
+  sometimes_hints_placed = 0
+  for k in sometimes_keys:
+    if sometimes_hints_placed >= sometimes_hint_count:
       break
     item = search_for_location(item_spheres, sometimes_hint_to_check_mapping[k])
-    important = item_is_useful(item, item_spheres, logic_settings)
+    important = item_is_useful(item, item_spheres, logic_settings, star_spirits)
     detail_text = '(Required)' if important else '(Optional)'
     if not '*' in item:
       detail_text = ''
     sometimes_hints += f"  {k} is {item} {detail_text}\n"
+    sometimes_hints_placed += 1
 
   # output the hints data file
   with open("./res/hints.txt", "w", encoding="utf-8") as file:
@@ -1144,4 +1223,5 @@ def generate_hints(item_spheres:dict, logic_settings):
     file.write(f"Sometimes Hints ({sometimes_hint_count}):\n")
     file.write(sometimes_hints)
     file.write("===================================\n")
+    file.write(f"{star_spirits}\n")
     file.write(json.dumps(item_spheres, indent=2))
