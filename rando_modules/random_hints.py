@@ -1112,9 +1112,10 @@ def item_is_useful(item:str, item_spheres:dict, logic_settings, star_spirits) ->
     return False
 
   if "Letter" in item \
-    and getattr(logic_settings, "include_letters_mode") == 0 \
-    and not item_is_useful(search_for_location(item_spheres, "Train Station - Parakarry Partner"), item_spheres, logic_settings, star_spirits):
-    return False
+    and getattr(logic_settings, "include_letters_mode") == 0:
+      parakarry_item = search_for_location(item_spheres, "Train Station - Parakarry Partner")
+      if "Letter" not in parakarry_item and not item_is_useful(parakarry_item, item_spheres, logic_settings, star_spirits):
+        return False
 
   if item == "Artifact*" and not item_is_useful(search_for_location(item_spheres, "Koopa Village 2 - Kolorado Artifact Reward"), item_spheres, logic_settings, star_spirits):
     return False
@@ -1350,5 +1351,5 @@ def generate_hints(item_spheres:dict, logic_settings, star_spirits):
     file.write(f"Sometimes Hints ({sometimes_hints_placed}):\n")
     file.write(sometimes_hints)
     file.write("===================================\n")
-    file.write(f"{star_spirits}\n")
-    file.write(json.dumps(item_spheres, indent=2))
+    # file.write(f"{star_spirits}\n")
+    # file.write(json.dumps(item_spheres, indent=2))
