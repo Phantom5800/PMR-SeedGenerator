@@ -410,6 +410,7 @@ MirrorClip                                      : false
 BombettePuzzleSkip                              : false
 KooperPuzzleSkip                                : false
 KooperlessKooperPuzzleSkip                      : false
+SmallStatueSkip                                 : false
 
 BowlessBowsersCastleBasement                    : false
 WattlessDarkBasement                            : false

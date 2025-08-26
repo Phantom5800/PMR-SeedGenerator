@@ -173,6 +173,7 @@ class GlitchOptionSet():
         self.bombette_puzzle_skip = False
         self.kooper_puzzle_skip = False
         self.kooperless_kooper_puzzle_skip = False
+        self.small_statue_skip = False
 
         self.bowless_bowsers_castle_basement = False
         self.wattless_dark_basement = False

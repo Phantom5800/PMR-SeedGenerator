@@ -471,6 +471,9 @@ from maps.graph_edges.glitched_logic.pra_kooper_puzzle_skip import (
     edges_pra_add_kooper_puzzle_skip,
     edges_pra_add_kooperless_kooper_puzzle_skip,
 )
+from maps.graph_edges.glitched_logic.pra_small_statue_skip import (
+    edges_pra_add_small_statue_skip,
+)
 
 # Glitched Logic - Bowser's Castle
 from maps.graph_edges.glitched_logic.kpa_bowless_bowsers_castle_basement import (
@@ -1254,6 +1257,8 @@ def get_glitched_logic(
         all_new_edges.extend(edges_pra_add_kooper_puzzle_skip)
     if glitch_settings.kooperless_kooper_puzzle_skip:
         all_new_edges.extend(edges_pra_add_kooperless_kooper_puzzle_skip)
+    if glitch_settings.small_statue_skip:
+        all_new_edges.extend(edges_pra_add_small_statue_skip)
 
     # Bowser's Castle
     if bowsers_castle_mode == BowserCastleMode.VANILLA:
