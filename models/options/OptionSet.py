@@ -898,6 +898,8 @@ class OptionSet:
             self.glitch_settings.bombette_puzzle_skip = options_dict.get("BombettePuzzleSkip")
         if "KooperPuzzleSkip" in options_dict:
             self.glitch_settings.kooper_puzzle_skip = options_dict.get("KooperPuzzleSkip")
+        if "KooperlessKooperPuzzleSkip" in options_dict:
+            self.glitch_settings.kooperless_kooper_puzzle_skip = options_dict("KooperlessKooperPuzzleSkip")
 
         if "BowlessBowsersCastleBasement" in options_dict:
             self.glitch_settings.bowless_bowsers_castle_basement = options_dict.get("BowlessBowsersCastleBasement")
@@ -1657,6 +1659,7 @@ class OptionSet:
         basic_assert("MirrorClip", bool)
         basic_assert("BombettePuzzleSkip", bool)
         basic_assert("KooperPuzzleSkip", bool)
+        basic_assert("KooperlessKooperPuzzleSkip", bool)
 
         basic_assert("BowlessBowsersCastleBasement", bool)
         basic_assert("WattlessDarkBasement", bool)
@@ -2249,6 +2252,7 @@ class OptionSet:
         web_settings["MirrorClip"] = self.glitch_settings.mirror_clip
         web_settings["BombettePuzzleSkip"] = self.glitch_settings.bombette_puzzle_skip
         web_settings["KooperPuzzleSkip"] = self.glitch_settings.kooper_puzzle_skip
+        web_settings["KooperlessKooperPuzzleSkip"] = self.glitch_settings.kooperless_kooper_puzzle_skip
 
         # Glitches: Bowser's Castle
         web_settings["BowlessBowsersCastleBasement"] = self.glitch_settings.bowless_bowsers_castle_basement

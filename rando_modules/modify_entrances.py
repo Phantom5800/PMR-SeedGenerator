@@ -469,6 +469,7 @@ from maps.graph_edges.glitched_logic.pra_bombette_puzzle_skip import (
 )
 from maps.graph_edges.glitched_logic.pra_kooper_puzzle_skip import (
     edges_pra_add_kooper_puzzle_skip,
+    edges_pra_add_kooperless_kooper_puzzle_skip,
 )
 
 # Glitched Logic - Bowser's Castle
@@ -1251,6 +1252,8 @@ def get_glitched_logic(
         all_new_edges.extend(edges_pra_add_bombette_puzzle_skip)
     if glitch_settings.kooper_puzzle_skip:
         all_new_edges.extend(edges_pra_add_kooper_puzzle_skip)
+    if glitch_settings.kooperless_kooper_puzzle_skip:
+        all_new_edges.extend(edges_pra_add_kooperless_kooper_puzzle_skip)
 
     # Bowser's Castle
     if bowsers_castle_mode == BowserCastleMode.VANILLA:

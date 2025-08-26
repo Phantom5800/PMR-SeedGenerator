@@ -409,6 +409,7 @@ SushielessWarehouseKeyKooper                    : false
 MirrorClip                                      : false
 BombettePuzzleSkip                              : false
 KooperPuzzleSkip                                : false
+KooperlessKooperPuzzleSkip                      : false
 
 BowlessBowsersCastleBasement                    : false
 WattlessDarkBasement                            : false
